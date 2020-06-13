@@ -16,9 +16,9 @@ class PaymentReceived extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($amount)
     {
-        //
+        $this->amount = $amount;
     }
 
     /**
@@ -29,7 +29,7 @@ class PaymentReceived extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database']; // memo: メールを送って、DB(notifications)にも保存
     }
 
     /**
@@ -57,7 +57,7 @@ class PaymentReceived extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'amount' => $this->amount // memo: notificationsテーブルのdataカラムに入れたい配列
         ];
     }
 }
