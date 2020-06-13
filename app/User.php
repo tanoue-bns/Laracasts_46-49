@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable; // memo: こいつがあるおかげで通知関連のメソッドが使える(例: user()->notifications;)
 
     /**
      * The attributes that are mass assignable.
