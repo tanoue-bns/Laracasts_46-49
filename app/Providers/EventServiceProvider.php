@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\ProductPurchased;
+use App\Listeners\AwardAchievements;
+use App\Listeners\SendSharableCoupon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,12 +21,19 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        // memo: ここに作成したイベント(ProductPurchased)が読み込まれたとき、実行するクラス(AwardAchievements,SendSharableCoupon)を定義
+        ProductPurchased::class => [
+            AwardAchievements::class,
+            SendSharableCoupon::class
+        ]
     ];
 
     /**
      * Register any events for your application.
      *
      * @return void
+     * 
      */
     public function boot()
     {

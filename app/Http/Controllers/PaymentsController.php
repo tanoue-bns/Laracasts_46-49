@@ -20,7 +20,7 @@ class PaymentsController extends Controller
         // ↓↓これでもいい
         request()->user()->notify(new PaymentReceived(900));
 
-        // 49のeventの部分。これだけでも動く
+        // 49のeventの部分。Listenerに定義されたhandle()が実行される
         ProductPurchased::dispatch('toy');
     }
 }
